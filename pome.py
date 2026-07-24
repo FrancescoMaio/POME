@@ -133,6 +133,30 @@ if __name__ == "__main__":
             subprocess.run(["python3", script, PATH2DATA, TARGETNAME], check=True)
             print(f"Finished {script}\n")
 
+    elif MODE == "exomoon":
+        scripts = [
+            "eris_calib_dark.py",
+            "eris_calib_dark_flat.py",
+            "eris_calib_flat.py",
+            "eris_calib_dark_psf.py",
+            "eris_elab_sky.py",
+            "eris_elab_obj.py",
+            "eris_elab_psf_batch.py"
+        ]
+
+        # Check if all the required scripts exist
+        for script in scripts:
+            script_path = os.path.join(PATH2DATA, script)
+            if not os.path.exists(script_path):
+                print(f"Error: The script '{script}' is missing from the directory.")
+                sys.exit(1)
+
+        for script in scripts:
+            print(f"Running {script} with arguments: {PATH2DATA} {TARGETNAME}")
+            subprocess.run(["python3", script, PATH2DATA, TARGETNAME], check=True)
+            print(f"Finished {script}\n")
+
+    
     else:
         print(f"Unknown mode: {MODE}\n")
         print_help()
